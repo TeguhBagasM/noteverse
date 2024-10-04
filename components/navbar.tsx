@@ -4,14 +4,27 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AiOutlineMenu, AiOutlineClose, AiFillHome } from "react-icons/ai";
+import { FaInfoCircle } from "react-icons/fa";
 import { RiUserFill } from "react-icons/ri";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { handleSignOut } from "./navbar-actions";
+import { Session } from "next-auth";
 
-const Navbar = ({ session }: { session: any }) => {
+interface NavbarProps {
+  session: Session | null;
+}
+
+interface User {
+  name?: string | null;
+  role?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ session }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const user = session?.user as User | undefined;
 
   return (
     <header className="bg-white border-b border-gray-200 dark:bg-gray-950 dark:text-white">
@@ -24,19 +37,19 @@ const Navbar = ({ session }: { session: any }) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 items-center font-semibold text-gray-600 dark:text-gray-200">
-          <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
+          <Link href="/" className="flex items-center hover:text-violet-600 transition-colors">
             <AiFillHome className="mr-2" /> Home
           </Link>
           {session && (
             <>
-              <Link href="/dashboard" className="hover:text-blue-600 transition-colors">
-                Dashboard
-              </Link>
-              <Link href="/notes" className="hover:text-blue-600 transition-colors">
+              <Link href="/notes" className="hover:text-violet-600 transition-colors">
                 Notes
               </Link>
-              {session.user.role === "admin" && (
-                <Link href="/user" className="hover:text-blue-600 transition-colors">
+              <Link href="/dashboard" className="hover:text-violet-600 transition-colors">
+                Dashboard
+              </Link>
+              {user?.role === "admin" && (
+                <Link href="/user" className="hover:text-violet-600 transition-colors">
                   Users
                 </Link>
               )}
@@ -48,8 +61,8 @@ const Navbar = ({ session }: { session: any }) => {
         <div className="flex items-center gap-4">
           {session && (
             <div className="hidden md:flex items-center gap-2">
-              <span className="flex items-center bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-lg text-blue-600">
-                <RiUserFill className="mr-1" /> {session.user.name}
+              <span className="flex items-center bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-lg text-violet-600">
+                <RiUserFill className="mr-1" /> {user?.name}
               </span>
             </div>
           )}
@@ -65,7 +78,7 @@ const Navbar = ({ session }: { session: any }) => {
           ) : (
             <Link
               href="/login"
-              className="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              className="hidden md:flex bg-violet-600 text-white px-4 py-2 rounded-md hover:bg-violet-700"
             >
               Sign In
             </Link>
@@ -94,17 +107,17 @@ const Navbar = ({ session }: { session: any }) => {
                 <AiFillHome className="mr-2" /> Home
               </Link>
             </li>
+            <li>
+              <Link
+                href="/about"
+                className="flex items-center text-gray-800 dark:text-gray-200"
+                onClick={toggleMenu}
+              >
+                <FaInfoCircle className="mr-2" /> About
+              </Link>
+            </li>
             {session && (
               <>
-                <li>
-                  <Link
-                    href="/dashboard"
-                    onClick={toggleMenu}
-                    className="text-gray-800 dark:text-gray-200"
-                  >
-                    Dashboard
-                  </Link>
-                </li>
                 <li>
                   <Link
                     href="/notes"
@@ -114,7 +127,16 @@ const Navbar = ({ session }: { session: any }) => {
                     Notes
                   </Link>
                 </li>
-                {session.user.role === "admin" && (
+                <li>
+                  <Link
+                    href="/dashboard"
+                    onClick={toggleMenu}
+                    className="text-gray-800 dark:text-gray-200"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                {user?.role === "admin" && (
                   <li>
                     <Link
                       href="/user"
@@ -143,7 +165,7 @@ const Navbar = ({ session }: { session: any }) => {
               <li>
                 <Link
                   href="/login"
-                  className="flex items-center mb-4 text-gray-800 dark:text-gray-200"
+                  className="flex items-center text-gray-800 dark:text-gray-200"
                   onClick={toggleMenu}
                 >
                   <BiLogIn className="mr-2" /> Login
