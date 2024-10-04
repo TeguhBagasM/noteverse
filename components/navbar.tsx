@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AiOutlineMenu, AiOutlineClose, AiFillHome } from "react-icons/ai";
-import { FaInfoCircle } from "react-icons/fa";
 import { RiUserFill } from "react-icons/ri";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { handleSignOut } from "./navbar-actions";
@@ -30,11 +29,11 @@ const Navbar = ({ session }: { session: any }) => {
           </Link>
           {session && (
             <>
-              <Link href="/notes" className="hover:text-blue-600 transition-colors">
-                Notes
-              </Link>
               <Link href="/dashboard" className="hover:text-blue-600 transition-colors">
                 Dashboard
+              </Link>
+              <Link href="/notes" className="hover:text-blue-600 transition-colors">
+                Notes
               </Link>
               {session.user.role === "admin" && (
                 <Link href="/user" className="hover:text-blue-600 transition-colors">
@@ -95,26 +94,8 @@ const Navbar = ({ session }: { session: any }) => {
                 <AiFillHome className="mr-2" /> Home
               </Link>
             </li>
-            {/* <li>
-              <Link
-                href="/about"
-                className="flex items-center text-gray-800 dark:text-gray-200"
-                onClick={toggleMenu}
-              >
-                <FaInfoCircle className="mr-2" /> About
-              </Link>
-            </li> */}
             {session && (
               <>
-                <li>
-                  <Link
-                    href="/notes"
-                    onClick={toggleMenu}
-                    className="text-gray-800 dark:text-gray-200"
-                  >
-                    Notes
-                  </Link>
-                </li>
                 <li>
                   <Link
                     href="/dashboard"
@@ -122,6 +103,15 @@ const Navbar = ({ session }: { session: any }) => {
                     className="text-gray-800 dark:text-gray-200"
                   >
                     Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/notes"
+                    onClick={toggleMenu}
+                    className="text-gray-800 dark:text-gray-200"
+                  >
+                    Notes
                   </Link>
                 </li>
                 {session.user.role === "admin" && (

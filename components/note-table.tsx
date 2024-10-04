@@ -1,32 +1,30 @@
 import { getNoteByUser } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
-const NoteTable = async () => {
+const NoteCards = async () => {
   const notes = await getNoteByUser();
-  if (!notes?.length) return <h1 className="text-2xl">No Note Found</h1>;
+
+  if (!notes?.length) return <h1 className="text-2xl text-center my-8">No Notes Found</h1>;
 
   return (
-    <table className="w-full bg-white mt-3">
-      <thead className="border-b border-gray-100">
-        <tr>
-          <th className="py-3 px-6 text-left text-sm">Name</th>
-          <th className="py-3 px-6 text-left text-sm">Email</th>
-          <th className="py-3 px-6 text-left text-sm">Created At</th>
-          <th className="py-3 px-6 text-left text-sm">Created By</th>
-        </tr>
-      </thead>
-      <tbody>
-        {notes.map((note) => (
-          <tr key={note.id}>
-            <td className="py-3 px-6">{note.title}</td>
-            <td className="py-3 px-6">{note.description}</td>
-            <td className="py-3 px-6">{formatDate(note.createdAt.toString())}</td>
-            <td className="py-3 px-6">{note.user.name}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+      {notes.map((note) => (
+        <div
+          key={note.id}
+          className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        >
+          <div className="p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2 truncate">{note.title}</h3>
+            <p className="text-gray-600 mb-4 line-clamp-2">{note.description}</p>
+            <div className="flex justify-between items-center text-sm text-gray-500">
+              <span>{formatDate(note.createdAt.toString())}</span>
+              <span className="truncate ml-2">by {note.user.name}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
-export default NoteTable;
+export default NoteCards;

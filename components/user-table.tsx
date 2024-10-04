@@ -2,27 +2,29 @@ import { getUsers } from "@/lib/data";
 
 const UserTable = async () => {
   const users = await getUsers();
-  if (!users?.length) return <h1 className="text-2xl">No User Found</h1>;
+  if (!users?.length) return <h1 className="text-2xl text-center mt-5">No Users Found</h1>;
 
   return (
-    <table className="w-full bg-white mt-3">
-      <thead className="border-b border-gray-100">
-        <tr>
-          <th className="py-3 px-6 text-left text-sm">Name</th>
-          <th className="py-3 px-6 text-left text-sm">Email</th>
-          <th className="py-3 px-6 text-left text-sm">Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) => (
-          <tr key={user.id}>
-            <td className="py-3 px-6">{user.name}</td>
-            <td className="py-3 px-6">{user.email}</td>
-            <td className="py-3 px-6">{user.role}</td>
+    <div className="overflow-x-auto">
+      <table className="w-full bg-white mt-3 border-collapse shadow-sm">
+        <thead className="bg-blue-500 text-gray-100 border-b border-gray-200">
+          <tr>
+            <th className="py-3 px-6 text-left text-sm font-semibold">Name</th>
+            <th className="py-3 px-6 text-left text-sm font-semibold">Email</th>
+            <th className="py-3 px-6 text-left text-sm font-semibold">Role</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="divide-y divide-gray-100">
+          {users.map((user) => (
+            <tr key={user.id} className="hover:bg-gray-50">
+              <td className="py-3 px-6 text-sm text-gray-900 whitespace-nowrap">{user.name}</td>
+              <td className="py-3 px-6 text-sm text-gray-900 whitespace-nowrap">{user.email}</td>
+              <td className="py-3 px-6 text-sm text-gray-900 whitespace-nowrap">{user.role}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
