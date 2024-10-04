@@ -1,70 +1,64 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { auth, signOut } from "@/auth";
+import { AiOutlineMenu, AiOutlineClose, AiFillHome } from "react-icons/ai";
+import { FaInfoCircle } from "react-icons/fa";
+import { RiUserFill } from "react-icons/ri";
+import { BiLogIn, BiLogOut } from "react-icons/bi";
+import { handleSignOut } from "./navbar-actions";
 
-const Navbar = async () => {
-  const session = await auth();
+const Navbar = ({ session }: { session: any }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+    <header className="bg-white border-b border-gray-200 dark:bg-gray-950 dark:text-white">
+      <div className="max-w-screen-xl flex justify-between items-center mx-auto p-4">
+        {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image src="/logo.png" alt="logo" width={36} height={36} priority />
           <span className="ml-2 text-lg font-semibold">NOTEVERSE.</span>
         </Link>
-        <div className="flex items-center gap-3">
-          <ul className="hidden md:flex items-center gap-4 mr-5 font-semibold text-gray-600 hover:text-gray-800">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            {session && (
-              <>
-                <li>
-                  <Link href="/notes">Notes</Link>
-                </li>
-                <li>
-                  <Link href="/dashboard">Dashboard</Link>
-                </li>
-                {session.user.role === "admin" && (
-                  <li>
-                    <Link href="/user">Users</Link>
-                  </li>
-                )}
-              </>
-            )}
-          </ul>
 
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-6 items-center font-semibold text-gray-600 dark:text-gray-200">
+          <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
+            <AiFillHome className="mr-2" /> Home
+          </Link>
           {session && (
-            <div className="flex gap-3 items-center">
-              <div className="flex flex-col justify-center text-right">
-                <span className="font-semibold text-gray-600 capitalize">{session.user.name}</span>
-                <span className="text-xs text-gray-400 capitalize">{session.user.role}</span>
-              </div>
-              <button
-                type="button"
-                className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-gray-200"
-              >
-                <Image
-                  src={session.user.image || "/avatar.svg"}
-                  alt="avatar"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
-              </button>
+            <>
+              <Link href="/notes" className="hover:text-blue-600 transition-colors">
+                Notes
+              </Link>
+              <Link href="/dashboard" className="hover:text-blue-600 transition-colors">
+                Dashboard
+              </Link>
+              {session.user.role === "admin" && (
+                <Link href="/user" className="hover:text-blue-600 transition-colors">
+                  Users
+                </Link>
+              )}
+            </>
+          )}
+        </nav>
+
+        {/* Right Side Actions */}
+        <div className="flex items-center gap-4">
+          {session && (
+            <div className="hidden md:flex items-center gap-2">
+              <span className="flex items-center bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-lg text-blue-600">
+                <RiUserFill className="mr-1" /> {session.user.name}
+              </span>
             </div>
           )}
-
           {session ? (
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
+            <form action={handleSignOut}>
               <button
                 type="submit"
-                className="bg-red-400 text-white px-4 py-2 rounded-md hover:bg-red-500 transition"
+                className="hidden md:flex items-center bg-red-400 text-white px-4 py-2 rounded-md hover:bg-red-500 transition"
               >
                 Sign Out
               </button>
@@ -72,14 +66,104 @@ const Navbar = async () => {
           ) : (
             <Link
               href="/login"
-              className="bg-red-400 text-white px-4 py-2 rounded-md hover:bg-red-500 transition"
+              className="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
             >
               Sign In
             </Link>
           )}
+
+          <div className="md:hidden">
+            {isMenuOpen ? (
+              <AiOutlineClose onClick={toggleMenu} className="text-2xl cursor-pointer" />
+            ) : (
+              <AiOutlineMenu onClick={toggleMenu} className="text-2xl cursor-pointer" />
+            )}
+          </div>
         </div>
       </div>
-    </nav>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <nav className="md:hidden mt-4">
+          <ul className="flex flex-col gap-4 px-4">
+            <li>
+              <Link
+                href="/"
+                className="flex items-center text-gray-800 dark:text-gray-200"
+                onClick={toggleMenu}
+              >
+                <AiFillHome className="mr-2" /> Home
+              </Link>
+            </li>
+            {/* <li>
+              <Link
+                href="/about"
+                className="flex items-center text-gray-800 dark:text-gray-200"
+                onClick={toggleMenu}
+              >
+                <FaInfoCircle className="mr-2" /> About
+              </Link>
+            </li> */}
+            {session && (
+              <>
+                <li>
+                  <Link
+                    href="/notes"
+                    onClick={toggleMenu}
+                    className="text-gray-800 dark:text-gray-200"
+                  >
+                    Notes
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard"
+                    onClick={toggleMenu}
+                    className="text-gray-800 dark:text-gray-200"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                {session.user.role === "admin" && (
+                  <li>
+                    <Link
+                      href="/user"
+                      onClick={toggleMenu}
+                      className="text-gray-800 dark:text-gray-200"
+                    >
+                      Users
+                    </Link>
+                  </li>
+                )}
+              </>
+            )}
+            {session ? (
+              <li>
+                <form action={handleSignOut}>
+                  <button
+                    type="submit"
+                    className="flex items-center text-red-600"
+                    onClick={toggleMenu}
+                  >
+                    <BiLogOut className="mr-2" /> Logout
+                  </button>
+                </form>
+              </li>
+            ) : (
+              <li>
+                <Link
+                  href="/login"
+                  className="flex items-center mb-4 text-gray-800 dark:text-gray-200"
+                  onClick={toggleMenu}
+                >
+                  <BiLogIn className="mr-2" /> Login
+                </Link>
+              </li>
+            )}
+          </ul>
+        </nav>
+      )}
+    </header>
   );
 };
 
