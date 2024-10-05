@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
   const user = session?.user as User | undefined;
 
   return (
-    <header className="bg-white border-b border-gray-200 dark:bg-gray-950 dark:text-white">
+    <header className="bg-white border-b border-gray-200">
       <div className="max-w-screen-xl flex justify-between items-center mx-auto p-4">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -37,19 +37,19 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 items-center font-semibold text-gray-600 dark:text-gray-200">
-          <Link href="/" className="flex items-center hover:text-violet-600 transition-colors">
+          <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
             <AiFillHome className="mr-2" /> Home
           </Link>
           {session && (
             <>
-              <Link href="/notes" className="hover:text-violet-600 transition-colors">
+              <Link href="/notes" className="hover:text-blue-600 transition-colors">
                 Notes
               </Link>
-              <Link href="/dashboard" className="hover:text-violet-600 transition-colors">
+              <Link href="/dashboard" className="hover:text-blue-600 transition-colors">
                 Dashboard
               </Link>
               {user?.role === "admin" && (
-                <Link href="/user" className="hover:text-violet-600 transition-colors">
+                <Link href="/user" className="hover:text-blue-600 transition-colors">
                   Users
                 </Link>
               )}
@@ -61,7 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
         <div className="flex items-center gap-4">
           {session && (
             <div className="hidden md:flex items-center gap-2">
-              <span className="flex items-center bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-lg text-violet-600">
+              <span className="flex items-center bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-lg text-blue-600">
                 <RiUserFill className="mr-1" /> {user?.name}
               </span>
             </div>
@@ -78,7 +78,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           ) : (
             <Link
               href="/login"
-              className="hidden md:flex bg-violet-600 text-white px-4 py-2 rounded-md hover:bg-violet-700"
+              className="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
             >
               Sign In
             </Link>
@@ -154,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                 <form action={handleSignOut}>
                   <button
                     type="submit"
-                    className="flex items-center text-red-600"
+                    className="flex items-center text-red-600 mb-4"
                     onClick={toggleMenu}
                   >
                     <BiLogOut className="mr-2" /> Logout
@@ -165,7 +165,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
               <li>
                 <Link
                   href="/login"
-                  className="flex items-center text-gray-800 dark:text-gray-200"
+                  className="flex items-center text-gray-800 mb-4"
                   onClick={toggleMenu}
                 >
                   <BiLogIn className="mr-2" /> Login
