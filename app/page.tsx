@@ -9,12 +9,15 @@ export default function Home() {
   const handleNotesPublic = () => {
     router.push("/notes-public");
   };
+
   return (
     <>
-      <section className="space-y-6 pb-8 pt-6 md:pb-10 lg:py-20 bg-slate-50">
+      <section className="flex items-center justify-center h-screen bg-slate-50">
         <div className="container flex flex-col gap-4 text-center">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black">Welcome to Noteverse</h1>
-          <p className="max-w-[36rem] mx-auto text-muted-foreground sm:text-lg">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl text-gray-800 font-black">
+            Welcome to Noteverse
+          </h1>
+          <p className="max-w-[36rem] mx-auto text-muted-foreground sm:text-lg text-gray-600">
             Organize your thoughts, tasks, and ideas efficiently.
           </p>
 

@@ -14,7 +14,7 @@ const Dashboard = async () => {
     <div className="bg-slate-50 min-h-screen">
       <div className="max-w-screen-lg mx-auto py-12 px-4">
         <header className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-indigo-800 mb-2">Dashboard</h1>
+          <h1 className="text-4xl font-bold text-blue-800 mb-2">Dashboard</h1>
         </header>
 
         {session?.user?.name && (

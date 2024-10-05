@@ -5,13 +5,12 @@ export default function About() {
     <div className="bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-screen-xl mx-auto text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          About <span className="text-indigo-800">Noteverse</span>
+          About <span className="text-blue-800">Noteverse</span>
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-          Welcome to <span className="font-bold text-indigo-800">Noteverse</span>, your one-stop
-          platform for creating, organizing, and sharing notes. Whether you&apos;re a student,
-          professional, or creative, Noteverse helps you manage your ideas with ease, anytime and
-          anywhere.
+          Welcome to <span className="font-bold text-blue-800">Noteverse</span>, your one-stop platform
+          for creating, organizing, and sharing notes. Whether you&apos;re a student, professional, or
+          creative, Noteverse helps you manage your ideas with ease, anytime and anywhere.
         </p>
       </div>
 
@@ -54,7 +53,7 @@ export default function About() {
       <div className="mt-16 max-w-4xl mx-auto text-center">
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">Our Mission</h2>
         <p className="text-lg text-gray-600 mb-8">
-          At <span className="font-bold text-indigo-900">Noteverse</span>, we believe in empowering
+          At <span className="font-bold text-blue-900">Noteverse</span>, we believe in empowering
           everyone to organize their thoughts and ideas effortlessly, helping you stay on top of your
           work and life.
         </p>

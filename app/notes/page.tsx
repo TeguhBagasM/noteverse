@@ -1,4 +1,4 @@
-import CreateNoteModal from "@/components/create-note-modal";
+import CreateNoteModal from "@/app/notes/create-note-modal";
 import NoteCards from "@/components/note-cards";
 import type { Metadata } from "next";
 
@@ -12,8 +12,8 @@ const NotePage = () => {
     <div className="bg-slate-50 min-h-screen">
       <div className="max-w-screen-xl mx-auto py-12 px-4">
         <header className="mb-10">
-          <h1 className="text-4xl font-bold text-indigo-800 mb-2">My Personal Notes</h1>
-          <p className="text-indigo-600">Organize your thoughts, ideas, and memories</p>
+          <h1 className="text-4xl font-bold text-blue-800 mb-2">My Personal Notes</h1>
+          <p className="text-blue-600">Organize your thoughts, ideas, and memories</p>
         </header>
 
         <main>
@@ -23,7 +23,7 @@ const NotePage = () => {
           </div>
 
           <section>
-            <h3 className="text-2xl font-semibold text-indigo-800 mb-6">Your Notes</h3>
+            <h3 className="text-2xl font-semibold text-blue-800 mb-6">Your Notes</h3>
             <NoteCards />
           </section>
         </main>

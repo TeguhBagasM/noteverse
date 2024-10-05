@@ -42,7 +42,7 @@ const NoteCards = async () => {
           </div>
           <Link
             href={`/notes/${note.id}`}
-            className="absolute inset-0 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 rounded-lg"
+            className="absolute inset-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-lg"
             aria-label={`View note: ${note.title}`}
           />
         </div>
