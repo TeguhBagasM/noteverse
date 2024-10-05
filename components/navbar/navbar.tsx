@@ -166,7 +166,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                     type="submit"
                     className="flex items-center text-red-600 hover:text-red-500 mb-4 transition"
                   >
-                    Sign Out
+                    <BiLogOut className="mr-2" /> Sign Out
                   </button>
                 </form>
               </li>
@@ -177,7 +177,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                   className="flex items-center text-gray-800 hover:text-blue-600 mb-4 transition"
                   onClick={toggleMenu}
                 >
-                  <BiLogIn className="mr-2" /> Login
+                  <BiLogIn className="mr-2" /> Sign In
                 </Link>
               </li>
             )}
