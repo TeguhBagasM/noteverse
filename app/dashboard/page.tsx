@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import PublicNoteCards from "@/components/note-public";
+import PublicNoteCards from "@/components/notes/note-public";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

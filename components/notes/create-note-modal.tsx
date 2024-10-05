@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { createNote } from "@/lib/note-actions";
 import { useRouter } from "next/navigation";
+import { createNote } from "@/lib/note-actions";
 
 const CreateNoteModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

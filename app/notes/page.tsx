@@ -1,5 +1,5 @@
-import CreateNoteModal from "@/app/notes/create-note-modal";
-import NoteCards from "@/components/note-cards";
+import CreateNoteModal from "@/components/notes/create-note-modal";
+import NoteCards from "@/components/notes/note-cards";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

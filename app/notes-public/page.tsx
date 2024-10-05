@@ -1,4 +1,4 @@
-import PublicNoteCards from "@/components/note-public";
+import PublicNoteCards from "@/components/notes/note-public";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
