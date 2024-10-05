@@ -3,12 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AiOutlineMenu, AiOutlineClose, AiFillHome } from "react-icons/ai";
+import {
+  AiOutlineMenu,
+  AiOutlineClose,
+  AiOutlineFileText,
+  AiOutlineDashboard,
+  AiOutlineUser,
+} from "react-icons/ai";
 import { FaInfoCircle } from "react-icons/fa";
-import { RiUserFill } from "react-icons/ri";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { handleSignOut } from "./navbar-actions";
 import { Session } from "next-auth";
+import { IoPersonCircle } from "react-icons/io5";
 
 interface NavbarProps {
   session: Session | null;
@@ -37,20 +43,26 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 items-center font-semibold text-gray-600">
-          <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
+          {/* <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
             <AiFillHome className="mr-2" /> Home
-          </Link>
+          </Link> */}
           {session && (
             <>
-              <Link href="/notes" className="hover:text-blue-600 transition-colors">
-                Notes
+              <Link
+                href="/dashboard"
+                className="flex items-center hover:text-blue-600 transition-colors"
+              >
+                <AiOutlineDashboard className="mr-2" /> Dashboard
               </Link>
-              <Link href="/dashboard" className="hover:text-blue-600 transition-colors">
-                Dashboard
+              <Link href="/about" className="flex items-center hover:text-blue-600 transition-colors">
+                <FaInfoCircle className="mr-2" /> About
+              </Link>
+              <Link href="/notes" className="flex items-center hover:text-blue-600 transition-colors">
+                <AiOutlineFileText className="mr-2" /> Notes
               </Link>
               {user?.role === "admin" && (
-                <Link href="/user" className="hover:text-blue-600 transition-colors">
-                  Users
+                <Link href="/user" className="flex items-center hover:text-blue-600 transition-colors">
+                  <AiOutlineUser className="mr-2" /> Users
                 </Link>
               )}
             </>
@@ -60,10 +72,27 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
         {/* Right Side Actions */}
         <div className="flex items-center gap-4">
           {session && (
-            <div className="hidden md:flex items-center gap-2">
-              <span className="flex items-center bg-gray-200 px-2 py-1 rounded-lg text-blue-600">
-                <RiUserFill className="mr-1" /> {user?.name}
-              </span>
+            <div className="hidden md:flex gap-3 items-center">
+              <div className="flex flex-col justify-center text-right">
+                <span className="font-semibold text-gray-600 capitalize">{session.user.name}</span>
+                <span className="text-xs text-gray-500 capitalize">{session.user.role}</span>
+              </div>
+              <button
+                type="button"
+                className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-gray-200 bg-gray-300 flex items-center justify-center"
+              >
+                {session?.user?.image ? (
+                  <Image
+                    src={session.user.image}
+                    alt="avatar"
+                    width={68}
+                    height={68}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <IoPersonCircle className="text-gray-600 w-full h-full" />
+                )}
+              </button>
             </div>
           )}
           {session ? (
@@ -100,15 +129,31 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           <ul className="flex flex-col gap-4 px-4">
             {session && (
               <li>
-                <div className="flex items-center justify-between text-blue-600 font-medium">
-                  <span className="flex items-center bg-gray-200 px-2 py-2 rounded-lg">
-                    <RiUserFill className="mr-2 text-xl" />
-                    {user?.name}
-                  </span>
+                <div className="flex gap-3 items-center">
+                  <div className="flex flex-col justify-center text-right">
+                    <span className="font-semibold text-gray-600 capitalize">{session.user.name}</span>
+                    <span className="text-xs text-gray-500 capitalize">{session.user.role}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center"
+                  >
+                    {session?.user?.image ? (
+                      <Image
+                        src={session.user.image}
+                        alt="avatar"
+                        width={68}
+                        height={68}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <IoPersonCircle className="text-gray-600 w-full h-full" />
+                    )}
+                  </button>
                 </div>
               </li>
             )}
-            <li>
+            {/* <li>
               <Link
                 href="/"
                 className="flex items-center text-gray-800 hover:text-blue-600 transition"
@@ -116,7 +161,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
               >
                 <AiFillHome className="mr-2" /> Home
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 href="/about"
@@ -130,20 +175,20 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
               <>
                 <li>
                   <Link
-                    href="/notes"
+                    href="/dashboard"
                     onClick={toggleMenu}
-                    className="text-gray-800 hover:text-blue-600 transition"
+                    className="flex items-center text-gray-800 hover:text-blue-600 transition"
                   >
-                    Notes
+                    <AiOutlineDashboard className="mr-2" /> Dashboard
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/dashboard"
+                    href="/notes"
                     onClick={toggleMenu}
-                    className="text-gray-800 hover:text-blue-600 transition"
+                    className="flex items-center text-gray-800 hover:text-blue-600 transition"
                   >
-                    Dashboard
+                    <AiOutlineFileText className="mr-2" /> Notes
                   </Link>
                 </li>
                 {user?.role === "admin" && (
@@ -151,9 +196,9 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                     <Link
                       href="/user"
                       onClick={toggleMenu}
-                      className="text-gray-800 hover:text-blue-600 transition"
+                      className="flex items-center text-gray-800 hover:text-blue-600 transition"
                     >
-                      Users
+                      <AiOutlineUser className="mr-2" /> Users
                     </Link>
                   </li>
                 )}
