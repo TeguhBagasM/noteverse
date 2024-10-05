@@ -48,8 +48,8 @@ export const getPublicNotes = async () => {
 
   try {
     const publicNotes = await prisma.note.findMany({
-      where: { isPublic: "public" }, // Filter untuk catatan publik
-      include: { user: { select: { name: true } } }, // Mengambil nama user
+      where: { isPublic: "public" },
+      include: { user: { select: { name: true } } },
     });
     return publicNotes;
   } catch (error) {

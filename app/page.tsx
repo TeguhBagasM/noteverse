@@ -6,9 +6,6 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
 
-  const handleGetStarted = () => {
-    router.push("/login");
-  };
   const handleNotesPublic = () => {
     router.push("/notes-public");
   };
@@ -32,14 +29,7 @@ export default function Home() {
             />
           </div>
 
-          {/* Tombol */}
           <div className="flex flex-col gap-3 justify-center sm:flex-row mt-4">
-            <button
-              onClick={handleGetStarted}
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Get Started
-            </button>
             <button
               onClick={handleNotesPublic}
               className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"

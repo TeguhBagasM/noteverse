@@ -40,34 +40,42 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           <span className="ml-2 text-lg font-semibold">NOTEVERSE.</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 items-center font-semibold text-gray-600">
-          {/* <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
-            <AiFillHome className="mr-2" /> Home
-          </Link> */}
           {session && (
             <>
               <Link
                 href="/dashboard"
+                aria-label="Dashboard"
                 className="flex items-center hover:text-blue-600 transition-colors"
               >
                 <AiOutlineDashboard className="mr-2" /> Dashboard
               </Link>
-              <Link href="/notes" className="flex items-center hover:text-blue-600 transition-colors">
-                <AiOutlineFileText className="mr-2" /> Notes
+              <Link
+                href="/notes"
+                aria-label="Your notes"
+                className="flex items-center hover:text-blue-600 transition-colors"
+              >
+                <AiOutlineFileText className="mr-2" /> My Notes
               </Link>
-              <Link href="/about" className="flex items-center hover:text-blue-600 transition-colors">
+              <Link
+                href="/about"
+                aria-label="About"
+                className="flex items-center hover:text-blue-600 transition-colors"
+              >
                 <FaInfoCircle className="mr-2" /> About
               </Link>
-              {user?.role === "admin" && (
-                <Link href="/user" className="flex items-center hover:text-blue-600 transition-colors">
+              {user && user.role === "admin" && (
+                <Link
+                  href="/user"
+                  aria-label="User management"
+                  className="flex items-center hover:text-blue-600 transition-colors"
+                >
                   <AiOutlineUser className="mr-2" /> Users
                 </Link>
               )}
             </>
           )}
         </nav>
-
         {/* Right Side Actions */}
         <div className="flex items-center gap-4">
           {session && (
@@ -178,7 +186,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                     onClick={toggleMenu}
                     className="flex items-center text-gray-800 hover:text-blue-600 transition"
                   >
-                    <AiOutlineFileText className="mr-2" /> Notes
+                    <AiOutlineFileText className="mr-2" /> My Notes
                   </Link>
                 </li>
                 {user?.role === "admin" && (
