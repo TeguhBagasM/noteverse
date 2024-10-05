@@ -2,24 +2,24 @@ import { getUsers } from "@/lib/data";
 
 const UserTable = async () => {
   const users = await getUsers();
-  if (!users?.length) return <h1 className="text-2xl text-center mt-5">No Users Found</h1>;
+  if (!users?.length) return <div className="text-center text-gray-500">No Users Found</div>;
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full bg-white mt-3 border-collapse shadow-sm">
-        <thead className="bg-blue-500 text-gray-100 border-b border-gray-200">
-          <tr>
-            <th className="py-3 px-6 text-left text-sm font-semibold">Name</th>
-            <th className="py-3 px-6 text-left text-sm font-semibold">Email</th>
-            <th className="py-3 px-6 text-left text-sm font-semibold">Role</th>
+    <div className="overflow-x-auto px-4 md:px-8">
+      <table className="table table-zebra w-full text-lg">
+        <thead>
+          <tr className="bg-gray-900 text-gray-200">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-100">
+        <tbody>
           {users.map((user) => (
-            <tr key={user.id} className="hover:bg-gray-50">
-              <td className="py-3 px-6 text-sm text-gray-900 whitespace-nowrap">{user.name}</td>
-              <td className="py-3 px-6 text-sm text-gray-900 whitespace-nowrap">{user.email}</td>
-              <td className="py-3 px-6 text-sm text-gray-900 whitespace-nowrap">{user.role}</td>
+            <tr key={user.id} className="hover:bg-gray-100 transition-colors duration-300">
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.role}</td>
             </tr>
           ))}
         </tbody>

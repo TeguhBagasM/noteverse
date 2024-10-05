@@ -7,7 +7,10 @@ export default function Home() {
   const router = useRouter();
 
   const handleGetStarted = () => {
-    router.push("/login"); // Arahkan ke halaman 'Get Started'
+    router.push("/login");
+  };
+  const handleNotesPublic = () => {
+    router.push("/notes-public");
   };
   return (
     <>
@@ -19,9 +22,9 @@ export default function Home() {
           </p>
 
           {/* Gambar lebih kecil */}
-          <div className="relative w-48 h-48 mx-auto mt-4">
+          <div className="relative w-56 h-56 mx-auto mt-4">
             <Image
-              src="/no-notes.png" // Pastikan gambar ini ada di folder public/images
+              src="/images/hero-notes.png"
               alt="Noteverse hero image"
               layout="fill"
               objectFit="contain"
@@ -36,6 +39,12 @@ export default function Home() {
               className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
             >
               Get Started
+            </button>
+            <button
+              onClick={handleNotesPublic}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+              View Notes
             </button>
           </div>
         </div>
