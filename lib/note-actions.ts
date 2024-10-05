@@ -1,5 +1,3 @@
-import { prisma } from "@/lib/prisma";
-import { auth } from "@/auth";
 import { z } from "zod";
 
 const CreateNoteSchema = z.object({
@@ -9,19 +7,32 @@ const CreateNoteSchema = z.object({
 });
 
 export async function createNote(formData: FormData) {
-  const response = await fetch("/api/notes", {
-    method: "POST",
-    body: JSON.stringify(Object.fromEntries(formData)),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  try {
+    const validatedFields = CreateNoteSchema.parse(Object.fromEntries(formData));
 
-  const result = await response.json();
+    const response = await fetch("../pages/api/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedFields),
+    });
 
-  if (!response.ok) {
-    return { error: result.error || "Failed to create note" };
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to create note");
+    }
+
+    const result = await response.json();
+    return { success: true, data: result.note };
+  } catch (error) {
+    console.error("Error creating note:", error);
+    if (error instanceof z.ZodError) {
+      return { error: error.errors };
+    }
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+    return { error: "An unexpected error occurred" };
   }
-
-  return { success: result.success };
 }

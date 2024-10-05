@@ -1,4 +1,4 @@
-import CreateNoteModal from "@/components/create-note-moda";
+import CreateNoteModal from "@/components/create-note-modal";
 import NoteCards from "@/components/note-cards";
 import type { Metadata } from "next";
 
