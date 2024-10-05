@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const NotePage = () => {
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div className="bg-slate-50 min-h-screen">
       <div className="max-w-screen-xl mx-auto py-12 px-4">
         <header className="mb-10">
           <h1 className="text-3xl font-bold text-indigo-800 mb-2">My Personal Notes</h1>

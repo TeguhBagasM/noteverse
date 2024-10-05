@@ -11,11 +11,10 @@ const Dashboard = async () => {
   const session = await auth();
 
   return (
-    <div className="bg-gradient-to-b from-slate-50 to-slate-100 min-h-screen">
+    <div className="bg-slate-50 min-h-screen">
       <div className="max-w-screen-lg mx-auto py-12 px-4">
         <header className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">Dashboard</h1>
-          <p className="text-slate-600">Discover and explore notes</p>
+          <h1 className="text-3xl font-bold text-indigo-800 mb-2">Dashboard</h1>
         </header>
 
         {session?.user?.name && (

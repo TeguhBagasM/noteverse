@@ -8,7 +8,7 @@ const UserTable = async () => {
     <div className="overflow-x-auto px-4 md:px-8">
       <table className="table table-zebra w-full text-lg">
         <thead>
-          <tr className="bg-gray-900 text-gray-200">
+          <tr className="text-gray-900">
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>

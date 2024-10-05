@@ -10,7 +10,7 @@ export async function createNote(formData: FormData) {
   try {
     const validatedFields = CreateNoteSchema.parse(Object.fromEntries(formData));
 
-    const response = await fetch("../pages/api/notes", {
+    const response = await fetch("/api/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

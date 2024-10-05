@@ -37,7 +37,9 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
       <div className="max-w-screen-xl flex justify-between items-center mx-auto p-4">
         <Link href="/" className="flex items-center">
           <Image src="/logo.png" alt="logo" width={36} height={36} priority />
-          <span className="ml-2 text-lg font-semibold">NOTEVERSE.</span>
+          <span className="ml-2 text-xl font-bold text-gray-900">
+            NOTEVERSE<span className="text-blue-500 font-bold">.</span>
+          </span>
         </Link>
 
         <nav className="hidden md:flex gap-6 items-center font-semibold text-gray-600">
