@@ -129,8 +129,8 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           <ul className="flex flex-col gap-4 px-4">
             {session && (
               <li>
-                <div className="flex gap-3 items-center">
-                  <div className="flex flex-col justify-center text-right">
+                <div className="flex justify-end items-center">
+                  <div className="flex flex-col items-end mr-3">
                     <span className="font-semibold text-gray-600 capitalize">{session.user.name}</span>
                     <span className="text-xs text-gray-500 capitalize">{session.user.role}</span>
                   </div>
@@ -153,15 +153,6 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                 </div>
               </li>
             )}
-            {/* <li>
-              <Link
-                href="/"
-                className="flex items-center text-gray-800 hover:text-blue-600 transition"
-                onClick={toggleMenu}
-              >
-                <AiFillHome className="mr-2" /> Home
-              </Link>
-            </li> */}
             <li>
               <Link
                 href="/about"
