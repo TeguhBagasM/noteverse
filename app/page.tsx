@@ -18,7 +18,6 @@ export default function Home() {
             Organize your thoughts, tasks, and ideas efficiently.
           </p>
 
-          {/* Gambar lebih kecil */}
           <div className="relative w-56 h-56 mx-auto mt-4">
             <Image
               src="/images/hero-notes.png"
