@@ -9,8 +9,9 @@ export default function About() {
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
           Welcome to <span className="font-bold text-indigo-800">Noteverse</span>, your one-stop
-          platform for creating, organizing, and sharing notes. Whether you're a student, professional,
-          or creative, Noteverse helps you manage your ideas with ease, anytime and anywhere.
+          platform for creating, organizing, and sharing notes. Whether you&apos;re a student,
+          professional, or creative, Noteverse helps you manage your ideas with ease, anytime and
+          anywhere.
         </p>
       </div>
 
