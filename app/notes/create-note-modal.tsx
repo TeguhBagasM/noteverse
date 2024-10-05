@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import { createNote } from "@/lib/note-actions";
+import { useRouter } from "next/navigation";
 
 const CreateNoteModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,8 +20,8 @@ const CreateNoteModal: React.FC = () => {
     } else {
       setIsOpen(false);
       setError(null);
+      router.refresh();
       // Optionally, you can add some success feedback here
-      console.log("Note created successfully:", result.data);
     }
   };
   return (
