@@ -12,7 +12,7 @@ const NotePage = () => {
     <div className="bg-slate-50 min-h-screen">
       <div className="max-w-screen-xl mx-auto py-12 px-4">
         <header className="mb-10">
-          <h1 className="text-3xl font-bold text-indigo-800 mb-2">My Personal Notes</h1>
+          <h1 className="text-4xl font-bold text-indigo-800 mb-2">My Personal Notes</h1>
           <p className="text-indigo-600">Organize your thoughts, ideas, and memories</p>
         </header>
 

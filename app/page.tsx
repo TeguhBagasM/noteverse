@@ -11,7 +11,7 @@ export default function Home() {
   };
   return (
     <>
-      <section className="space-y-6 pb-8 pt-6 md:pb-10 lg:py-20">
+      <section className="space-y-6 pb-8 pt-6 md:pb-10 lg:py-20 bg-slate-50">
         <div className="container flex flex-col gap-4 text-center">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-black">Welcome to Noteverse</h1>
           <p className="max-w-[36rem] mx-auto text-muted-foreground sm:text-lg">
