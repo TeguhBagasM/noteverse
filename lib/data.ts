@@ -42,14 +42,18 @@ export const getNoteByUser = async () => {
 };
 
 export const getPublicNotes = async () => {
+  const session = await auth();
+
+  if (!session || !session.user) redirect("/dashboard");
+
   try {
     const publicNotes = await prisma.note.findMany({
-      where: { isPublic: true }, // Filter untuk catatan publik
+      where: { isPublic: "public" }, // Filter untuk catatan publik
       include: { user: { select: { name: true } } }, // Mengambil nama user
     });
     return publicNotes;
   } catch (error) {
-    console.log(error);
+    console.log("Error fetching public notes:", error);
     return [];
   }
 };

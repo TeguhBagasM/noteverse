@@ -3,7 +3,6 @@ import { formatDate } from "@/lib/utils";
 
 const PublicNoteCards = async () => {
   const publicNotes = await getPublicNotes(); // Memanggil fungsi untuk catatan publik
-  console.log("Public Notes in component:", publicNotes); // Cek data di komponen
 
   if (!publicNotes?.length) {
     return <h1 className="text-2xl text-center my-8">No Public Notes Found</h1>;
@@ -14,8 +13,17 @@ const PublicNoteCards = async () => {
       {publicNotes.map((note) => (
         <div
           key={note.id}
-          className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 relative"
         >
+          {/* Label untuk Status Public/Private */}
+          <span
+            className={`${
+              note.isPublic === "public" ? "bg-blue-100" : "bg-red-100"
+            } absolute top-2 right-2 px-2 py-1 text-sm font-medium rounded`}
+          >
+            {note.isPublic === "public" ? "Public" : "Private"}
+          </span>
+
           <div className="p-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-2 truncate">{note.title}</h3>
             <p className="text-gray-600 mb-4 line-clamp-2">{note.description}</p>

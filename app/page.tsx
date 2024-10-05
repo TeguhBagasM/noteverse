@@ -9,11 +9,6 @@ export default function Home() {
   const handleGetStarted = () => {
     router.push("/login"); // Arahkan ke halaman 'Get Started'
   };
-
-  const handleViewNotes = () => {
-    router.push("/notes"); // Arahkan ke halaman 'View Notes'
-  };
-
   return (
     <>
       <section className="space-y-6 pb-8 pt-6 md:pb-10 lg:py-20">
@@ -41,12 +36,6 @@ export default function Home() {
               className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
             >
               Get Started
-            </button>
-            <button
-              onClick={handleViewNotes}
-              className="bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-300"
-            >
-              View Notes
             </button>
           </div>
         </div>
