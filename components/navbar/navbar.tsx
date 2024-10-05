@@ -46,6 +46,9 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           {/* <Link href="/" className="flex items-center hover:text-blue-600 transition-colors">
             <AiFillHome className="mr-2" /> Home
           </Link> */}
+          <Link href="/notes" className="flex items-center hover:text-blue-600 transition-colors">
+            <AiOutlineFileText className="mr-2" /> Notes
+          </Link>
           {session && (
             <>
               <Link
@@ -56,9 +59,6 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
               </Link>
               <Link href="/about" className="flex items-center hover:text-blue-600 transition-colors">
                 <FaInfoCircle className="mr-2" /> About
-              </Link>
-              <Link href="/notes" className="flex items-center hover:text-blue-600 transition-colors">
-                <AiOutlineFileText className="mr-2" /> Notes
               </Link>
               {user?.role === "admin" && (
                 <Link href="/user" className="flex items-center hover:text-blue-600 transition-colors">
@@ -162,6 +162,15 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                 <FaInfoCircle className="mr-2" /> About
               </Link>
             </li>
+            <li>
+              <Link
+                href="/notes"
+                onClick={toggleMenu}
+                className="flex items-center text-gray-800 hover:text-blue-600 transition"
+              >
+                <AiOutlineFileText className="mr-2" /> Notes
+              </Link>
+            </li>
             {session && (
               <>
                 <li>
@@ -171,15 +180,6 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                     className="flex items-center text-gray-800 hover:text-blue-600 transition"
                   >
                     <AiOutlineDashboard className="mr-2" /> Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/notes"
-                    onClick={toggleMenu}
-                    className="flex items-center text-gray-800 hover:text-blue-600 transition"
-                  >
-                    <AiOutlineFileText className="mr-2" /> Notes
                   </Link>
                 </li>
                 {user?.role === "admin" && (
