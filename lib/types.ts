@@ -1,10 +1,12 @@
-export interface Note {
+export type Note = {
   id: string;
   title: string;
   description: string;
-  isPublic: "public" | "private";
-  createdAt: string;
+  isPublic: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
   user: {
-    name: string;
+    name: string | null;
   };
-}
+};

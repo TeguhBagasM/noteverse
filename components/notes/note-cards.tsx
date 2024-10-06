@@ -4,20 +4,7 @@ import { useState } from "react";
 import { formatDate } from "@/lib/utils";
 import EditNoteModal from "./edit-note-modal";
 import DeleteNoteModal from "./delete-note-modal";
-
-// Updated Note type
-type Note = {
-  id: string;
-  title: string;
-  description: string;
-  isPublic: string; // Changed from "public" | "private" to string
-  createdAt: Date; // Changed from string to Date
-  updatedAt: Date; // Added this field
-  userId: string; // Added this field
-  user: {
-    name: string | null; // Changed from string to string | null
-  };
-};
+import { Note } from "@/lib/types";
 
 type NoteCardsProps = {
   initialNotes: Note[] | undefined;
@@ -36,6 +23,11 @@ const NoteCards: React.FC<NoteCardsProps> = ({ initialNotes }) => {
       </div>
     );
   }
+
+  const handleUpdate = (updatedNote: Note) => {
+    setNotes(notes.map((note) => (note.id === updatedNote.id ? updatedNote : note)));
+    setEditingNote(null);
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -75,7 +67,7 @@ const NoteCards: React.FC<NoteCardsProps> = ({ initialNotes }) => {
           </div>
           <div className="bg-gray-50 px-6 py-4 text-sm text-gray-500 flex justify-between items-center">
             <span>{formatDate(note.createdAt.toString())}</span>
-            <span className="truncate ml-2">by {note.user.name || "Unknown"}</span>
+            <span className="truncate ml-2">by {note.user?.name || "Unknown"}</span>
           </div>
         </div>
       ))}
@@ -83,10 +75,7 @@ const NoteCards: React.FC<NoteCardsProps> = ({ initialNotes }) => {
         <EditNoteModal
           note={editingNote}
           onClose={() => setEditingNote(null)}
-          onUpdate={(updatedNote: Note) => {
-            setNotes(notes.map((n) => (n.id === updatedNote.id ? updatedNote : n)));
-            setEditingNote(null);
-          }}
+          onUpdate={handleUpdate}
         />
       )}
       {deletingNoteId && (
