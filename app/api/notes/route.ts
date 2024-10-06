@@ -40,3 +40,43 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "An unexpected error occurred" }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Get the note ID from the request URL
+    const { id } = params;
+
+    // Check if the note exists and belongs to the user
+    const note = await prisma.note.findUnique({
+      where: { id },
+      select: { userId: true },
+    });
+
+    if (!note) {
+      return NextResponse.json({ error: "Note not found" }, { status: 404 });
+    }
+
+    if (note.userId !== session.user.id) {
+      return NextResponse.json(
+        { error: "You are not authorized to delete this note" },
+        { status: 403 }
+      );
+    }
+
+    // Delete the note
+    await prisma.note.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, message: "Note deleted successfully" });
+  } catch (error) {
+    console.error("Failed to delete note:", error);
+    return NextResponse.json({ error: "An unexpected error occurred" }, { status: 500 });
+  }
+}

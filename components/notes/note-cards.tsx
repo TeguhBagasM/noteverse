@@ -1,6 +1,5 @@
 import { getNoteByUser } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
-import Link from "next/link";
 
 const NoteCards = async () => {
   const notes = await getNoteByUser();
@@ -40,11 +39,6 @@ const NoteCards = async () => {
             <span>{formatDate(note.createdAt.toString())}</span>
             <span className="truncate ml-2">by {note.user.name}</span>
           </div>
-          <Link
-            href={`/notes/${note.id}`}
-            className="absolute inset-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-lg"
-            aria-label={`View note: ${note.title}`}
-          />
         </div>
       ))}
     </div>

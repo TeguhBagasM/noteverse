@@ -3,7 +3,7 @@ import NoteCards from "@/components/notes/note-cards";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Notes | Personal Dashboard",
+  title: "My Notes",
   description: "View and manage your personal notes",
 };
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createNote } from "@/lib/note-actions";
+import toast from "react-hot-toast";
 
 const CreateNoteModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const CreateNoteModal: React.FC = () => {
       setIsOpen(false);
       setError(null);
       router.refresh();
-      // Optionally, you can add some success feedback here
+      toast.success("Notes Created Successfully");
     }
   };
   return (
@@ -39,24 +40,30 @@ const CreateNoteModal: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label" htmlFor="title">
-                  <span className="label-text">Title</span>
+                  <span className="label-text text-gray-600">Title</span>
                 </label>
-                <input type="text" id="title" name="title" className="input input-bordered" required />
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  className="input input-bordered bg-gray-100"
+                  required
+                />
               </div>
               <div className="form-control mt-4">
                 <label className="label" htmlFor="description">
-                  <span className="label-text">Description</span>
+                  <span className="label-text text-gray-600">Description</span>
                 </label>
                 <textarea
                   id="description"
                   name="description"
-                  className="textarea textarea-bordered h-24"
+                  className="textarea textarea-bordered bg-gray-100 h-24"
                   required
                 ></textarea>
               </div>
               <div className="form-control mt-4">
                 <label className="label cursor-pointer">
-                  <span className="label-text">Make this note public</span>
+                  <span className="label-text text-gray-600">Make this note public</span>
                   <input type="checkbox" name="isPublic" className="toggle" />
                 </label>
               </div>

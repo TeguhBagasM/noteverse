@@ -36,3 +36,29 @@ export async function createNote(formData: FormData) {
     return { error: "An unexpected error occurred" };
   }
 }
+
+export async function deleteNote(noteId: string) {
+  try {
+    const response = await fetch(`/api/notes/${noteId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json(); // Parse the error response
+      console.error("Delete error data:", errorData); // Log the error response
+      throw new Error(errorData.error || "Failed to delete note");
+    }
+
+    const result = await response.json();
+    return { success: true, message: result.message }; // Adjust this according to your API response
+  } catch (error) {
+    console.error("Error deleting note:", error);
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
