@@ -9,6 +9,8 @@ const CreateNoteSchema = z.object({
   isPublic: z.enum(["on", "off"]).optional(),
 });
 
+const UpdateNoteSchema = CreateNoteSchema.partial();
+
 export async function POST(req: Request) {
   try {
     const session = await auth();
@@ -41,7 +43,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request) {
   try {
     const session = await auth();
 
@@ -49,32 +51,64 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Get the note ID from the request URL
-    const { id } = params;
+    const body = await req.json();
+    const { id, ...updateData } = body;
+    const validatedFields = UpdateNoteSchema.parse(updateData);
 
-    // Check if the note exists and belongs to the user
-    const note = await prisma.note.findUnique({
-      where: { id },
-      select: { userId: true },
+    const existingNote = await prisma.note.findUnique({
+      where: { id, userId: session.user.id },
     });
 
-    if (!note) {
+    if (!existingNote) {
       return NextResponse.json({ error: "Note not found" }, { status: 404 });
     }
 
-    if (note.userId !== session.user.id) {
-      return NextResponse.json(
-        { error: "You are not authorized to delete this note" },
-        { status: 403 }
-      );
+    const updatedNote = await prisma.note.update({
+      where: { id },
+      data: {
+        ...validatedFields,
+        isPublic: validatedFields.isPublic === "on" ? "public" : "private",
+      },
+    });
+
+    return NextResponse.json({ success: true, note: updatedNote });
+  } catch (error) {
+    console.error("Failed to update note:", error);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.errors }, { status: 400 });
+    }
+    return NextResponse.json({ error: "An unexpected error occurred" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Delete the note
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "Note ID is required" }, { status: 400 });
+    }
+
+    const existingNote = await prisma.note.findUnique({
+      where: { id, userId: session.user.id },
+    });
+
+    if (!existingNote) {
+      return NextResponse.json({ error: "Note not found" }, { status: 404 });
+    }
+
     await prisma.note.delete({
       where: { id },
     });
 
-    return NextResponse.json({ success: true, message: "Note deleted successfully" });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Failed to delete note:", error);
     return NextResponse.json({ error: "An unexpected error occurred" }, { status: 500 });

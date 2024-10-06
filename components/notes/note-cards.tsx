@@ -1,8 +1,32 @@
-import { getNoteByUser } from "@/lib/data";
-import { formatDate } from "@/lib/utils";
+"use client";
 
-const NoteCards = async () => {
-  const notes = await getNoteByUser();
+import { useState } from "react";
+import { formatDate } from "@/lib/utils";
+import EditNoteModal from "./edit-note-modal";
+import DeleteNoteModal from "./delete-note-modal";
+
+// Updated Note type
+type Note = {
+  id: string;
+  title: string;
+  description: string;
+  isPublic: string; // Changed from "public" | "private" to string
+  createdAt: Date; // Changed from string to Date
+  updatedAt: Date; // Added this field
+  userId: string; // Added this field
+  user: {
+    name: string | null; // Changed from string to string | null
+  };
+};
+
+type NoteCardsProps = {
+  initialNotes: Note[] | undefined;
+};
+
+const NoteCards: React.FC<NoteCardsProps> = ({ initialNotes }) => {
+  const [notes, setNotes] = useState<Note[]>(initialNotes || []);
+  const [editingNote, setEditingNote] = useState<Note | null>(null);
+  const [deletingNoteId, setDeletingNoteId] = useState<string | null>(null);
 
   if (!notes?.length) {
     return (
@@ -20,9 +44,23 @@ const NoteCards = async () => {
           key={note.id}
           className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative flex flex-col"
         >
+          <div className="bg-blue-200 px-6 py-4 text-sm text-gray-900 flex justify-end items-center">
+            <button
+              onClick={() => setEditingNote(note)}
+              className="mr-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => setDeletingNoteId(note.id)}
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+            >
+              Delete
+            </button>
+          </div>
           <div className="p-6 flex-grow">
             <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-semibold text-gray-800 truncate flex-grow mr-2">
+              <h3 className="text-2xl font-semibold text-gray-800 truncate flex-grow mr-2">
                 {note.title}
               </h3>
               <span
@@ -37,10 +75,30 @@ const NoteCards = async () => {
           </div>
           <div className="bg-gray-50 px-6 py-4 text-sm text-gray-500 flex justify-between items-center">
             <span>{formatDate(note.createdAt.toString())}</span>
-            <span className="truncate ml-2">by {note.user.name}</span>
+            <span className="truncate ml-2">by {note.user.name || "Unknown"}</span>
           </div>
         </div>
       ))}
+      {editingNote && (
+        <EditNoteModal
+          note={editingNote}
+          onClose={() => setEditingNote(null)}
+          onUpdate={(updatedNote: Note) => {
+            setNotes(notes.map((n) => (n.id === updatedNote.id ? updatedNote : n)));
+            setEditingNote(null);
+          }}
+        />
+      )}
+      {deletingNoteId && (
+        <DeleteNoteModal
+          noteId={deletingNoteId}
+          onClose={() => setDeletingNoteId(null)}
+          onDelete={() => {
+            setNotes(notes.filter((n) => n.id !== deletingNoteId));
+            setDeletingNoteId(null);
+          }}
+        />
+      )}
     </div>
   );
 };

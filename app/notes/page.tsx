@@ -1,3 +1,4 @@
+import { getNoteByUser } from "@/lib/data";
 import CreateNoteModal from "@/components/notes/create-note-modal";
 import NoteCards from "@/components/notes/note-cards";
 import type { Metadata } from "next";
@@ -7,7 +8,9 @@ export const metadata: Metadata = {
   description: "View and manage your personal notes",
 };
 
-const NotePage = () => {
+const NotePage = async () => {
+  const notes = await getNoteByUser();
+
   return (
     <div className="bg-slate-50 min-h-screen">
       <div className="max-w-screen-xl mx-auto py-12 px-4">
@@ -24,7 +27,7 @@ const NotePage = () => {
 
           <section>
             <h3 className="text-2xl font-semibold text-blue-800 mb-6">Your Notes</h3>
-            <NoteCards />
+            <NoteCards initialNotes={notes} />
           </section>
         </main>
       </div>
