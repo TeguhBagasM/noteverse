@@ -42,7 +42,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({ note, onClose, onUpdate }
               id="title"
               name="title"
               defaultValue={note.title}
-              className="input input-bordered bg-gray-100"
+              className="input input-bordered bg-gray-100 text-gray-600"
               required
             />
           </div>
@@ -54,7 +54,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({ note, onClose, onUpdate }
               id="description"
               name="description"
               defaultValue={note.description}
-              className="textarea textarea-bordered bg-gray-100 h-24"
+              className="textarea textarea-bordered bg-gray-100 text-gray-600 h-24"
               required
             ></textarea>
           </div>

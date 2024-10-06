@@ -46,7 +46,7 @@ const CreateNoteModal: React.FC = () => {
                   type="text"
                   id="title"
                   name="title"
-                  className="input input-bordered bg-gray-100"
+                  className="input input-bordered bg-gray-100 text-gray-600"
                   required
                 />
               </div>
@@ -57,7 +57,7 @@ const CreateNoteModal: React.FC = () => {
                 <textarea
                   id="description"
                   name="description"
-                  className="textarea textarea-bordered bg-gray-100 h-24"
+                  className="textarea textarea-bordered bg-gray-100 text-gray-600 h-24"
                   required
                 ></textarea>
               </div>
