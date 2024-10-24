@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { createNote } from "@/lib/note-actions";
 import toast from "react-hot-toast";
 
 const CreateNoteModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,7 +18,6 @@ const CreateNoteModal: React.FC = () => {
     } else {
       setIsOpen(false);
       setError(null);
-      router.refresh();
       toast.success("Notes Created Successfully");
     }
   };
